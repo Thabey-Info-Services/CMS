@@ -39,6 +39,8 @@ namespace CMS.Controllers
         }
 
         // POST api/values
+        [HttpGet]
+        [Route("api/GetAccount/{value}")]
         public void Post([FromBody]string value)
         {
         }
