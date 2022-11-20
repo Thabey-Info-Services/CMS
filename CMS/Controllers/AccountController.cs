@@ -12,10 +12,10 @@ namespace CMS.Controllers
     {
         AccountModel[] ObjLogin = new AccountModel[]
            {
-               new AccountModel{ID=1,Name="Suganya" },
-                new AccountModel{ID=1,Name="Kannabiran" },
-                 new AccountModel{ID=1,Name="Ashok" },
-                  new AccountModel{ID=1,Name="Parkavi" }
+               new AccountModel{ID=1,NAME ="Suganya" },
+                new AccountModel{ID=1,NAME="Kannabiran" },
+                 new AccountModel{ID=1,NAME="Ashok" },
+                  new AccountModel{ID=1,NAME="Parkavi" }
           };
         // GET api/values
         [HttpGet]
@@ -35,7 +35,7 @@ namespace CMS.Controllers
                 return NotFound().ToString();
             else
                 return AccountList.ToString();
-            
+
         }
 
         // POST api/values
