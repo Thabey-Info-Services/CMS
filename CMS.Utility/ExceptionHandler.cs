@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MBS.Utility
+namespace CMS.Utility
 {
     public class ExceptionHandler : Exception
     {
@@ -167,7 +167,7 @@ namespace MBS.Utility
             if (showMessage)
             {
                 //MessageRender.ShowMessage(message + "\r\n\r\nSource::" + errorSource, isError);
-                MessageRender.ShowMessage(message, isError);
+                //MessageRender.ShowMessage(message, isError);
             }
         }
 

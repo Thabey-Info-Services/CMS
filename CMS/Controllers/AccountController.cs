@@ -26,11 +26,11 @@ namespace CMS.Controllers
         }
 
         // GET api/values/5
-        [HttpGet]
-        [Route("api/GetAccount/{id}")]
-        public string GetAccount(int id)
+        [HttpPost]
+        [Route("api/GetAccount/")]
+        public string GetAccount([FromBody]string id)
         {
-            var AccountList = ObjLogin.FirstOrDefault(x => x.ID == id);
+            var AccountList = ObjLogin.FirstOrDefault(x => x.ID == Convert.ToInt32(id));
             if (AccountList == null)
                 return NotFound().ToString();
             else
