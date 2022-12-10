@@ -18,24 +18,30 @@ namespace CMS.SQL
                 case AccountSQLCommand.FetchLogindetails:
                     {
                         query = @"SELECT 
-                                        UA.USER_ACCOUNT_ID,
-                                        UA.USERNAME,
-                                        SR.ROLE_NAME,
-                                        UA.ROLE,
-                                        SU.USER_TYPE_NAME,
-                                        SU.USER_TYPE_ID,
-                                        UA.USER_ID,
-                                        UA.NAME,
-                                        UA.PHOTO,CONTROLLER_NAME,ACTION_NAME
-                                    FROM
-                                        USER_ACCOUNT AS UA
-                                            LEFT JOIN
-                                        SUP_ROLE AS SR ON SR.ROLE_ID = UA.ROLE
-                                            LEFT JOIN
-                                        SUP_USER_TYPE AS SU ON SU.USER_TYPE_ID = UA.USER_TYPE
-                                    WHERE
-                                        UA.USERNAME = @USERNAME
-                                            AND UA.PASSWORD = HASHBYTES('SHA2_256','@PASSWORD') AND UA.IS_DELETED!=1;";
+	                                COUNT(*) AS COUNT
+                                FROM 
+	                                LOGIN_MASTER 
+                                WHERE 
+	                                MOBILE_NO = @MOBILE_NO;";
+                        break;
+                    }
+                case AccountSQLCommand.SaveNewUser:
+                    {
+                        query = @"INSERT INTO REGISTRATION
+	                                    (FIRST_NAME,LAST_NAME,EMAIL,MOBILE_NO,IS_LOCKED,USER_ROLE)
+                                  VALUES
+	                                    (@FIRST_NAME,@LAST_NAME,@EMAIL,@MOBILE_NO,0,1);";
+                        break;
+                    }
+                case AccountSQLCommand.FetchRequirement:
+                    {
+                        query = @"SELECT 
+	                                 [REQUIREMENT_ID]
+	                                ,[REQUIREMENT_NAME] 
+                                  FROM
+	                                 SUB_REQUIREMENT 
+                                 WHERE 
+	                                IS_LOCKED != 1;";
                         break;
                     }
             }

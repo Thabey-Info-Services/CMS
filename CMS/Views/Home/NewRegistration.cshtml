@@ -1,4 +1,5 @@
-﻿
+﻿@model CMS.ViewModel.ViewModel.CustomerViewModel
+
 @{
     Layout = null;
 }
@@ -98,13 +99,9 @@
 
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Requirement</label>
-                                            <select class="form-control">
-                                                <option value="">Iwill be using Carterplus for:</option>
-                                                <option value="">Business Usage</option>
-                                                <option value="">Personal Usage</option>
-                                                <option value="">House Shifting Usage</option>
-                                            </select>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            @Html.DropDownListFor(model => Model.RequirementList, (Model.RequirementList != null) ? Model.RequirementList : Enumerable.Empty<SelectListItem>(), "--select--", new { @class = " selectpicker show-menu-arrow show-tick drop-down form-control  input-sm" })
+                                            @*@Html.DropDownListFor(model => model.liRequirementList, (Model.liRequirementList != null) ? Model.liRequirementList : Enumerable.Empty<SelectListItem>(), "--select--", new { @class = " selectpicker show-menu-arrow show-tick drop-down form-control  input-sm", @data_live_search = "true" })*@
+
                                         </div>
 
                                         <div class="col-12">

@@ -13,7 +13,10 @@ namespace CMS.DAO
     {
 
         FetchLogindetails,
-        FetchMenuForBaseLoginId,
+        FetchRequirement,
+        SaveNewUser,
+        FetchUserProfileDetails,
+        DeteleUserByAdmin,
     }
     public enum UserAccountSQLCommands
     {

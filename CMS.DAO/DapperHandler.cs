@@ -13,7 +13,7 @@ namespace CMS.DAO
 {
     public class DapperHandler
     {
-        public static string CurrentConnectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
+        public static string CurrentConnectionString = ConfigurationManager.ConnectionStrings["CMS"].ConnectionString;
         //FetchAll
         public static List<T> FetchAll<T>(string sSQL, object param = null)
         {
