@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CMS.DAO;
+using CMS.Utility;
 using CMS.ViewModel.Model;
 using CMS.ViewModel.ViewModel;
 using Newtonsoft.Json;
@@ -44,7 +45,7 @@ namespace CMS.Controllers
             var RequirementList = (List<SUB_REQUIREMENT>)DapperHandler.FetchAll<SUB_REQUIREMENT>(SQL.AccontSQL.GetAccountSQL(AccountSQLCommand.FetchRequirement));
             if (RequirementList != null && RequirementList.Count > 0)
             {
-                ObjModel.liRequirementList = new SelectList(RequirementList, ObjModel.REQUIREMENT_ID, ObjModel.REQUIREMENT_NAME);
+                ObjModel.liRequirementList = new SelectList(RequirementList, Common.SUB_REQUIREMENT.REQUIREMENT_ID, Common.SUB_REQUIREMENT.REQUIREMENT_NAME);
             }
 
             //if (RequirementList != null && RequirementList.Count > 0)
@@ -54,7 +55,7 @@ namespace CMS.Controllers
             //        sOption += "<option value='" + item.REQUIREMENT_ID + "' >" + item.REQUIREMENT_NAME + "</option>";
             //    }
             //}
-            return View(sOption);
+            return View(ObjModel);
         }
         public JsonResult CheckUser(string sMobile)
         {

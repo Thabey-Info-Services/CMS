@@ -485,10 +485,15 @@ namespace CMS.Utility
             public const string HAS_SUB = "HAS_SUB";
         }
         
-       
+        public class SUB_REQUIREMENT
+        {
+            public const string REQUIREMENT_ID = "REQUIREMENT_ID";
+            public const string REQUIREMENT_NAME = "REQUIREMENT_NAME";
+            public const string IS_LOCKED = "IS_LOCKED";
+        }
 
-       
-       
-       
+
+
+
     }
 }
