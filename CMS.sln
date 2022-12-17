@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Utility", "CMS.Utility\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.SQL", "CMS.SQL\CMS.SQL.csproj", "{CF26757A-86E2-4B25-9242-FD295A2A46B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.ViewModel", "..\..\..\Billig Software\CMS\CMS.ViewModel\CMS.ViewModel.csproj", "{FD0D67AC-A488-4C78-AD19-107C13265B7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.ViewModel", "..\..\..\Billig Software\MBSYLG\MBS.ViewModel\CMS.ViewModel.csproj", "{DF7C3510-6A63-4FAE-B7DA-D9157129936B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{CF26757A-86E2-4B25-9242-FD295A2A46B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF26757A-86E2-4B25-9242-FD295A2A46B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF26757A-86E2-4B25-9242-FD295A2A46B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD0D67AC-A488-4C78-AD19-107C13265B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD0D67AC-A488-4C78-AD19-107C13265B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD0D67AC-A488-4C78-AD19-107C13265B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD0D67AC-A488-4C78-AD19-107C13265B7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7C3510-6A63-4FAE-B7DA-D9157129936B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7C3510-6A63-4FAE-B7DA-D9157129936B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7C3510-6A63-4FAE-B7DA-D9157129936B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7C3510-6A63-4FAE-B7DA-D9157129936B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

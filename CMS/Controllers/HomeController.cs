@@ -5,9 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using CMS.DAO;
 using CMS.Utility;
-using CMS.ViewModel.Model;
-using CMS.ViewModel.ViewModel;
 using Newtonsoft.Json;
+using CMS.ViewModel.Model;
+using CMS.Models;
+using CMS.ViewModel.ViewModel;
 
 namespace CMS.Controllers
 {

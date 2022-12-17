@@ -20,13 +20,7 @@ namespace CMS.Models
         public string GST_FLAG { get; set; }
         public string GST_NUMBER { get; set;}
     }
-    public class SUB_REQUIREMENT
-    {
-        public string REQUIREMENT_ID { get; set; }
-        public string REQUIREMENT_NAME { get; set; }
-        public string IS_LOCKED { get; set; }
-    }
-
+   
     #endregion
     
 }
