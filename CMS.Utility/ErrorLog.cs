@@ -92,7 +92,7 @@ namespace CMS.Utility
                 {
                     Directory.CreateDirectory(slogfilepath);
                 }
-                filename = string.Concat(slogfilepath, "\\", "SMS", DateTime.Today.ToShortDateString().Replace("/", "_"), ".log"); //create log file daily basis if exception is thorwn
+                filename = string.Concat(slogfilepath, "\\", "Error", DateTime.Today.ToShortDateString().Replace("/", "_"), ".log"); //create log file daily basis if exception is thorwn
                 StreamWriter sw = File.AppendText(filename);
                 sMessage = ("::" + sMessage);
                 sw.WriteLine(sMessage);

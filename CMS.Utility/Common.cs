@@ -40,6 +40,7 @@ namespace CMS.Utility
             public static string PleaseConfigureExamHeads = @"PleaseConfigureExamHeads !.\n Please meet admin for more information ";
             public static string UserAccountNotCreated = @"UserAccount is not created!";
             public static string RecordsExistAlready = @"Record(s) Are Exist Already!.";
+            public static string MobileNumberExistAlready = @"Mobile Number Exist Already!.";
             public static string InvalidInput = @"Invalid Input!";
         }
        
@@ -385,7 +386,7 @@ namespace CMS.Utility
             public const string ACTION_NAME = "ACTION_NAME";
             public const string CONTROLLER_NAME = "CONTROLLER_NAME";
 
-            //public const string PERSON_NAME = "USERNAME";
+            public const string EMAIL = "EMAIL";
             //public const string CONNECTION_STRING = "CONNECTION_STRING";
             //public const string HEADING1 = "HEADING1";
             //public const string HEADING2 = "HEADING2";

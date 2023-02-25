@@ -1,9 +1,9 @@
 ﻿@model CMS.ViewModel.Model.CUSTOMER_PERSONAL_INFO
 
 @{
-                /**/
+    /**/
 
-                Layout = null;
+    Layout = null;
 }
 
 <meta charset="utf-8">
@@ -65,22 +65,28 @@
                                         <p class="form-label " style="opacity:0.7">Welcome <i style="opacity:0.5">&#128075;</i></p>
                                         <h6 class="justify-content-center form-label " style="opacity:0.5"> With a vaild number, you can access deliveries, and our other service</h6>
                                     </div>
-                                    <div class="col-12">
-                                        <label for="yourUsername" class="form-label"></label>
-                                        <div class="input-group has-validation">
-                                            <select id="ddlcountrycode" class="input-group-text">
-                                                <option value="1" selected>+91</option>
-                                            </select>
-
-                                            <input type="text" name="MobileNumber" maxlength="12" onkeypress="return NumberOnly(event)" class="form-control" id="txtmobilenumber" required="required">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Mobile No", htmlAttributes: new { @class = "control-label col-md-4" })
+                                            @*<span style="background-color:red">*</span>*@
+                                            <div class="col-md-8">
+                                                <input type="text" name="txtmobileno" onkeypress="return NumberOnly(event)" class="form-control" id="txtmobileno" maxlength="12" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4" })
+                                            <div class="col-md-8">
+                                                <input type="text" name="txtpassword" class="form-control" maxlength="10" id="txtpassword" required>
+                                            </div>
                                         </div>
                                     </div>
+                                    <br />
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 " id="btnsave" type="submit">Login</button>
                                     </div>
                                     @*<div class="col-12">
-                                            <p class="small mb-0">Don't have account? <a href="@Url.Action("NewRegistration","Home")">Create an account</a></p>
-                                        </div>*@
+            <p class="small mb-0">Don't have account? <a href="@Url.Action("NewRegistration","Home")">Create an account</a></p>
+        </div>*@
 
                                 </form>
 
@@ -155,7 +161,8 @@
 
         $("#btnsave").on("click", function ()
         {
-            var Mobile = $('#txtmobilenumber').val();
+            var Mobile = $('#txtmobileno').val();
+            var Password = $('#txtpassword').val();
             //var Countrycode = $('#ddlcountrycode').val();
             // var AcademicYear = $('#AcademicYear option:selected').text();
             if (Mobile == "" || Mobile == null)
@@ -164,21 +171,20 @@
                 return false;
             }
             $.ajax({
-                    url: "@Url.Action("CheckUser", "Home")",
+                    url: "@Url.Action("Userlogin", "UserAccount")",
                     method: "POST",
                     datatype: "json",
-                    data: { sMobile: Mobile},
+                data: { sMobile: Mobile, sPassword:Password},
                     success: function (data)
                     {
-                        alert(data.sResult);
+                        
                         if (data.sResult == null && data.sResult == '')
                         {
-                            window.location.href = "@Url.Action("NewRegistration", "Home")";
+                            window.location.href = "@Url.Action("HomeIndex", "Home")";
                         }
                         else
                         {
                             swal({ title: "Error !", text: data.sResult, showConfirmButton: false, timer: 2000, type: 'error', animation: true });
-                            window.location.href = "@Url.Action("Login2", "Home")";
                         }
                 },
                 error: function (error)

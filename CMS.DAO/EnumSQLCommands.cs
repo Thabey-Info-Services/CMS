@@ -17,6 +17,7 @@ namespace CMS.DAO
         SaveNewUser,
         FetchUserProfileDetails,
         DeteleUserByAdmin,
+        FetchMenuItemsByRole, FetchUserdetails,
     }
     public enum UserAccountSQLCommands
     {

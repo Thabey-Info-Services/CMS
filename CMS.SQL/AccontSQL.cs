@@ -18,19 +18,38 @@ namespace CMS.SQL
                 case AccountSQLCommand.FetchLogindetails:
                     {
                         query = @"SELECT 
-	                                COUNT(*) AS COUNT
+                                    count(*) as [COUNT],
+                                    UA.[USER_ID],
+                                    UA.USER_TYPE
                                 FROM 
-	                                LOGIN_MASTER 
+	                                USER_ACCOUNT UA
+                                INNER JOIN 
+	                                REGISTRATION R ON R.ID = UA.[USER_ID]
                                 WHERE 
-	                                MOBILE_NO = @MOBILE_NO;";
+	                                USERNAME=@USERNAME 
+                                 AND 
+	                                [PASSWORD]=@PASSWORD
+                                 AND 
+	                                [IS_DELETED] = 0 
+                                 AND 
+	                                [IS_ACTIVE] = 1";
+                        break;
+                    }
+                case AccountSQLCommand.FetchUserdetails:
+                    {
+                        query = @"SELECT 
+                                   ISNULL(USERNAME,'0') as [USER_NAME]
+                                FROM 
+	                                USER_ACCOUNT UA
+                                INNER JOIN 
+	                                REGISTRATION R ON R.ID = UA.[USER_ID]
+                                WHERE 
+	                                USERNAME=@USERNAME";
                         break;
                     }
                 case AccountSQLCommand.SaveNewUser:
                     {
-                        query = @"INSERT INTO REGISTRATION
-	                                    (FIRST_NAME,LAST_NAME,EMAIL,MOBILE_NO,IS_LOCKED,USER_ROLE)
-                                  VALUES
-	                                    (@FIRST_NAME,@LAST_NAME,@EMAIL,@MOBILE_NO,0,1);";
+                        query = @"EXEC USP_SAVEUSER_DETAILS @FIRST_NAME ,@LAST_NAME,@EMAIL,@REQUIREMENT,@PASSWORD,@CONFIRM_PASSWORD";
                         break;
                     }
                 case AccountSQLCommand.FetchRequirement:
@@ -44,6 +63,34 @@ namespace CMS.SQL
 	                                IS_LOCKED != 1;";
                         break;
                     }
+                case AccountSQLCommand.FetchUserProfileDetails:
+                    {
+                        query = @"SELECT 
+                                    M.MODULE_NAME,
+                                    MI.ACTION,
+                                    MI.CONTROLLER,
+                                    MI.MENU_NAME,
+                                    M.STYLE,
+                                    M.HAS_SUB
+                                FROM
+                                    USER_ROLES_RIGHTS AS RR
+                                        INNER JOIN
+                                    MENU_ITEMS AS MI ON MI.MENU_ID = RR.MENU_ITEM_ID
+                                        AND MI.IS_DELETED!=1
+                                        INNER JOIN
+                                    MODULES AS M ON M.MODULES_ID = MI.PARENT_ID
+										INNER JOIN 
+                                    USER_ACCOUNT UA ON UA.ROLE=RR.ROLE_ID
+										AND UA.USER_ID=@USER_ID
+                                        AND UA.USER_TYPE=@USER_TYPE
+                                        AND UA.IS_DELETED!=1
+                                WHERE
+                                     RR.IS_ACTIVE = 1   
+									-- group by RR.MENU_ITEM_ID
+                                ORDER BY M.MODULES_ORDER , MI.MENU_NAME";
+                        break;
+                    }
+             
             }
             return query;
         }
