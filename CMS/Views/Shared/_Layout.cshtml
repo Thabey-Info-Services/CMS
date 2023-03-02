@@ -1,11 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using CMS.Utility;
+@using System.Data;
+@using CMS.ViewModel.Model;
+
+@{
+    if (Session["USER_ID"] == null)
+    {
+        Response.Redirect("/Home/Login");
+    }
+
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>Dashboard | Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -45,7 +58,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="~/assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Admin</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -280,18 +293,47 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i>
-                    <span>Components</span>
-                    <i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Alerts</span>
-                        </a>
-                    </li>
-                </ul>
+
+                @{
+                    if (Session[Common.SESSION_VARIABLES.MENU_ITEMS] != null)
+                    {
+                        DataTable dtMenu = new DataTable();
+                        string sParent = string.Empty;
+                        dtMenu = (DataTable)Session[Common.SESSION_VARIABLES.MENU_ITEMS];
+                        if (dtMenu != null && dtMenu.Rows.Count > 0)
+                        {
+                            DataColumn dCol = new DataColumn();
+                            dCol = dtMenu.Columns[Common.MODULES.MODULE_NAME];
+                            DataTable dtParent = new DataTable();
+                            dtParent = dtMenu.DefaultView.ToTable(true, Common.MODULES.MODULE_NAME, Common.MODULES.STYLE, Common.MODULES.HAS_SUB);
+                            foreach (DataRow item in dtParent.Rows)
+                            {
+
+                                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-menu-button-wide"></i>
+                                    <span>@item[Common.MODULES.MODULE_NAME]</span>
+                                    <i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                if (item[Common.MODULES.HAS_SUB].ToString() == "1")
+                                {
+                                    DataTable dtSub = new DataTable();
+                                    DataRow[] drSub = dtMenu.Select(Common.MODULES.MODULE_NAME + "='" + item[Common.MODULES.MODULE_NAME].ToString() + "'");
+                                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                        @foreach (DataRow subItem in drSub)
+                                        {
+
+                                            <li>
+                                                <a href="javascript:;" onclick="loadContent('/@subItem[Common.MENU_ITEMS.CONTROLLER].ToString()/@subItem[Common.MENU_ITEMS.ACTION].ToString()')">
+                                                    <i class="bi bi-circle"></i><span>@subItem[Common.MENU_ITEMS.MENU_NAME].ToString()</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
+                        }
+                    }
+                }
             </li><!-- End Components Nav -->
         </ul>
 
@@ -300,7 +342,7 @@
 
     <main id="main" class="main">
 
-        
+
         @RenderBody()
     </main>
     <br />

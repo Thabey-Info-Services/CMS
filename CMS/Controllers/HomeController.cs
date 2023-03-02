@@ -28,8 +28,8 @@ namespace CMS.Controllers
         public ActionResult HomeIndex()
         {
 
-
-            return View();
+            CUSTOMER_PERSONAL_INFO ObjViewModel = new CUSTOMER_PERSONAL_INFO();
+            return View(ObjViewModel);
         }
 
         public ActionResult Test()
@@ -87,7 +87,7 @@ namespace CMS.Controllers
                     }
                     else
                     {
-                        sResult = Common.Messages.MobileNumberExistAlready;
+                        sResult = Common.ErrorCode.Ok;
                     }
                 }
 
@@ -97,7 +97,7 @@ namespace CMS.Controllers
 
                 ObjError.WriteError("Home", "CheckUser", ex.ToString());
             }
-            return Json(sResult, JsonRequestBehavior.AllowGet);
+            return Json(sResult);
 
         }
 
@@ -110,6 +110,7 @@ namespace CMS.Controllers
             {
                 if (Result != null)
                 {
+                    Result.PASSWORD = GetSha256FromString(Result.PASSWORD);
                      sResult = DapperHandler.SaveOrUpdate(SQL.AccontSQL.GetAccountSQL(AccountSQLCommand.SaveNewUser),
                         new {Result.FIRST_NAME,Result.LAST_NAME,Result.EMAIL,Result.REQUIREMENT,Result.PASSWORD,Result.CONFIRM_PASSWORD }).ToString();
                 }
@@ -120,6 +121,20 @@ namespace CMS.Controllers
                 throw ex;
             }
             return Json(sResult,JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Encryption Method
+        public static string GetSha256FromString(string strData)
+        {
+            var Message = Encoding.ASCII.GetBytes(strData);
+            SHA256Managed hashString = new SHA256Managed();
+            string Hex = string.Empty;
+            var Hashvalue = hashString.ComputeHash(Message);
+            foreach (byte x in Hashvalue)
+            {
+                Hex += string.Format("{0:x2}", x);
+            }
+            return Hex;
         }
         #endregion
     }

@@ -42,7 +42,7 @@
 ======================================================== -->
 
 <main>
-    <div class="container">
+    <div class="container" >
 
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
@@ -52,11 +52,11 @@
                         <div class="d-flex justify-content-center py-4">
                             <a href="@Url.Action("Login", "Home")" class="logo d-flex align-items-center w-auto">
                                 <img src="~/assets/img/logo.png" alt="">
-                                <span class="d-none d-lg-block">CarterPlus</span>
+                                <span class="d-none d-lg-block" style="font-family:cursive;font-size:xx-large">CarterPlus</span>
                             </a>
                         </div><!-- End Logo -->
 
-                        <div class="card mb-3">
+                        <div class="card mb-3" id="divlogin">
 
                             <div class="card-body">
 
@@ -75,26 +75,68 @@
                                             <input type="text" name="MobileNumber" maxlength="12" onkeypress="return NumberOnly(event)" class="form-control" id="txtmobilenumber" required="required">
                                         </div>
                                     </div>
+
+
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 " id="btnsave" type="submit">Login</button>
+                                        
                                     </div>
                                     @*<div class="col-12">
-                                            <p class="small mb-0">Don't have account? <a href="@Url.Action("NewRegistration","Home")">Create an account</a></p>
-                                        </div>*@
+                        <p class="small mb-0">Don't have account? <a href="@Url.Action("NewRegistration","Home")">Create an account</a></p>
+                    </div>*@
 
                                 </form>
 
                             </div>
                         </div>
 
+                        <div id="divlogin2" class="card mb-3" style="display:none">
 
+                            <div class="card-body">
+
+                                <form class="row g-3 needs-validation" novalidate>
+                                    <div class="col-md-12">
+                                        <p class="form-label " style="opacity:0.7">Welcome <i style="opacity:0.5">&#128075;</i></p>
+                                        <h6 class="justify-content-center form-label " style="opacity:0.5"> With a vaild number, you can access deliveries, and our other service</h6>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label"></label>
+                                        <div class="input-group has-validation">
+                                            <select id="ddlcountrycode" class="input-group-text">
+                                                <option value="1" selected>+91</option>
+                                            </select>
+
+                                            <input type="text" name="MobileNumber" maxlength="12" onkeypress="return NumberOnly(event)" class="form-control" id="txtmobilenumber" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="divpass" class="form-group col-md-6" >
+                                                @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4" })
+                                                <div class="col-md-8">
+                                                    <input type="password" name="txtpassword" class="form-control" maxlength="10" id="txtpassword" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button  class="btn btn-primary w-100 " id="btnClick" type="submit">Login</button>
+
+                                    </div>
+                                  
+                                </form>
+
+                            </div>
+                        </div>
 
                         <div class="credits">
                             <!-- All the links in the footer should remain intact. -->
                             <!-- You can delete the links only if you purchased the pro version. -->
                             <!-- Licensing information: https://bootstrapmade.com/license/ -->
                             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                            Designed by CarterPlus &copy;@DateTime.Now.ToString("yyyy")
+                            <span style="font-family:'Times New Roman', Times, serif"><i> Designed by CarterPlus &copy;@DateTime.Now.ToString("yyyy")</i></span>
                         </div>
 
                         </>
@@ -125,9 +167,13 @@
 
 
 <script>
-
-    function ContentLoad() {
-
+    //$(document).ready(function ()
+    //{
+    //    $('#btnsave').show();
+    //});
+    function ContentLoad()
+    {
+        
     }
 
     function NumberOnly(e) {
@@ -170,15 +216,55 @@
                     data: { sMobile: Mobile},
                     success: function (data)
                     {
-                        alert(data.sResult);
-                        if (data.sResult == null && data.sResult == '')
+                        console.log("data: " + data)
+                        if (data != "200")
                         {
+
                             window.location.href = "@Url.Action("NewRegistration", "Home")";
                         }
                         else
                         {
+                            swal({ title: "Error !", text: 'Mobile Number Exist Already!.', showConfirmButton: false, timer: 2000, type: 'error', animation: true });
+                             window.location.href = "@Url.Action("Login2", "Home")";
+                            ///$('#divlogin').attr("style", "display:none");
+                            //$('#divlogin2').removeAttr("style");
+                            
+                        }
+                },
+                error: function (error)
+                {
+                     swal({ title: "Error !", text: 'Internal Server Error !', showConfirmButton: false, timer: 1500, type: 'error', animation: true });
+                }
+        });
+    });
+
+
+    $("#btnClick").on("click", function ()
+        {
+            var Mobile = $('#txtmobilenumber').val();
+           var Password = $('#txtpassword').val();
+            //var Countrycode = $('#ddlcountrycode').val();
+            // var AcademicYear = $('#AcademicYear option:selected').text();
+            if (Mobile == "" || Mobile == null)
+            {
+                swal({ title: "Error !", text: 'Mobile number not empty !', showConfirmButton: false, timer: 1200, type: 'error', animation: true });
+                return false;
+            }
+            $.ajax({
+                    url: "@Url.Action("Userlogin", "UserAccount")",
+                    method: "POST",
+                    datatype: "json",
+                data: { sMobile: Mobile, sPassword:Password},
+                    success: function (data)
+                    {
+                        
+                        if (data.sResult == null && data.sResult == '')
+                        {
+                            window.location.href = "@Url.Action("HomeIndex", "Home")";
+                        }
+                        else
+                        {
                             swal({ title: "Error !", text: data.sResult, showConfirmButton: false, timer: 2000, type: 'error', animation: true });
-                            window.location.href = "@Url.Action("Login2", "Home")";
                         }
                 },
                 error: function (error)

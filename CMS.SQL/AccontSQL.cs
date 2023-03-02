@@ -17,8 +17,7 @@ namespace CMS.SQL
 
                 case AccountSQLCommand.FetchLogindetails:
                     {
-                        query = @"SELECT 
-                                    count(*) as [COUNT],
+                        query = @"SELECT distinct
                                     UA.[USER_ID],
                                     UA.USER_TYPE
                                 FROM 
@@ -71,7 +70,7 @@ namespace CMS.SQL
                                     MI.CONTROLLER,
                                     MI.MENU_NAME,
                                     M.STYLE,
-                                    M.HAS_SUB
+                                    M.HAS_SUB,UA.[USERNAME] as USER_NAME,UA.EMAIL,'Admin' as USER_ROLE_NAME,'1' as USER_ROLE_ID
                                 FROM
                                     USER_ROLES_RIGHTS AS RR
                                         INNER JOIN
