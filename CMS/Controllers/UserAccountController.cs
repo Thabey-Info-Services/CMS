@@ -54,6 +54,9 @@ namespace CMS.Controllers
                 MenuList.Columns.Add("HAS_SUB", typeof(string));
                 MenuList.Columns.Add("STYLE", typeof(string));
                 MenuList.Columns.Add("EMAIL", typeof(string));
+                MenuList.Columns.Add("SIDEBAR_NAV_ID", typeof(string));
+                MenuList.Columns.Add("COMPONENTS_NAV_ID", typeof(string));
+                MenuList.Columns.Add("SUB_MENU_STYLE", typeof(string));
 
                 foreach (var person in customer.liMenuList)
                 {
@@ -68,7 +71,9 @@ namespace CMS.Controllers
                     row["HAS_SUB"] = person.HAS_SUB;
                     row["STYLE"] = person.STYLE;
                     row["EMAIL"] = person.EMAIL;
-
+                    row["SIDEBAR_NAV_ID"] = person.SIDEBAR_NAV_ID;
+                    row["COMPONENTS_NAV_ID"] = person.COMPONENTS_NAV_ID;
+                    row["SUB_MENU_STYLE"] = person.SUB_MENU_STYLE;
 
                     MenuList.Rows.Add(row);
                 }

@@ -70,7 +70,8 @@ namespace CMS.SQL
                                     MI.CONTROLLER,
                                     MI.MENU_NAME,
                                     M.STYLE,
-                                    M.HAS_SUB,UA.[USERNAME] as USER_NAME,UA.EMAIL,'Admin' as USER_ROLE_NAME,'1' as USER_ROLE_ID
+                                    M.HAS_SUB,UA.[USERNAME] as USER_NAME,UA.EMAIL,'Admin' as USER_ROLE_NAME,'1' as USER_ROLE_ID,
+                                    M.SIDEBAR_NAV_ID,M.COMPONENTS_NAV_ID,M.SUB_MENU_STYLE
                                 FROM
                                     USER_ROLES_RIGHTS AS RR
                                         INNER JOIN
